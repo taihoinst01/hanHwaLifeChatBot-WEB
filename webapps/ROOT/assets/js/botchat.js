@@ -13379,6 +13379,7 @@
                             d.appendChild(this._element, o), n++
                         }
                     }
+                this._element.innerHTML = this._element.innerHTML.replace("/n", "</br>");
                 return this._element
             }, e.prototype.getBackgroundColor = function() {
                 return null
