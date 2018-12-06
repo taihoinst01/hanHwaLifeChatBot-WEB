@@ -13380,6 +13380,8 @@
                         }
                     }
                 this._element.innerHTML = this._element.innerHTML.replace("/n", "</br>");
+                this._element.innerHTML = this._element.innerHTML.replace("/t", "<blockquote>");
+                
                 return this._element
             }, e.prototype.getBackgroundColor = function() {
                 return null
