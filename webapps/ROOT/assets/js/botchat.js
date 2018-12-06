@@ -13380,7 +13380,7 @@
                         }
                     }
                 this._element.innerHTML = this._element.innerHTML.replace("/n", "</br>");
-                this._element.innerHTML = this._element.innerHTML.replace("/t", "<blockquote>");
+                this._element.innerHTML = this._element.innerHTML.replace("/t", "&nbsp;");
                 
                 return this._element
             }, e.prototype.getBackgroundColor = function() {
