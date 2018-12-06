@@ -13380,7 +13380,7 @@
                         }
                     }
                 this._element.innerHTML = this._element.innerHTML.split("/n").join("</br>");
-                //this._element.innerHTML = this._element.innerHTML.replace("/t", "&nbsp;");
+                this._element.innerHTML = this._element.innerHTML..split("/t").join("&nbsp;");
                 return this._element
             }, e.prototype.getBackgroundColor = function() {
                 return null
