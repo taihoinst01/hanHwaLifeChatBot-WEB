@@ -51,7 +51,7 @@ if (isMobile()) {   //모바일 환경
                 $('.btnLayer > button').removeClass('topIcon02').addClass('topIcon02-1');
             }
         } else {
-            $('.topIcon01').css('top', '25px');
+            //$('.topIcon01').css('top', '25px');
             $('.wc-menu').css('display', 'none');
             $('.wc-textbox').css('left', '15px');
             $('.wc-chatview-panel').css('bottom', 0).show();

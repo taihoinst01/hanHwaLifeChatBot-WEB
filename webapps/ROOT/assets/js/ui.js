@@ -92,6 +92,7 @@ $(function () {
         $('.wc-chatview-panel').css('bottom', 0).hide();
         $('.bot-wrap').hide().removeClass("chatOn").addClass("chatOff");
     });
+    //, "border-radius": "10px"
     $('.btnMin').click(function () {
         $('.wc-chatview-panel').css({ "overflow": "hidden" });
         $('.wc-chatview-panel').animate({ "height": "32px" }, "fast");
@@ -104,7 +105,8 @@ $(function () {
     $(document).on('click', '.wc-header [class*=btnLayer]', function () {
         if ($(this).hasClass('btnLayerMid')) {
             $('.wc-chatview-panel').css({ "bottom": "5px" });
-            $('.wc-chatview-panel').css({ "overflow": "visible" });
+            $('.wc-chatview-panel').css({ "overflow": "hidden" });
+            //$('.wc-chatview-panel').css({ "overflow": "visible" }); //original
             $('.wc-chatview-panel').animate({ "height": "582px" }, "fast");
             $('.wc-console, wc-message-pane').show();
             $('.btnLayer').removeClass('btnLayerMid').addClass('btnLayerFull');
@@ -143,6 +145,7 @@ $(function () {
             }
             
         }
+        //$('.wc-chatview-panel').css('overflow', 'hidden');
     });
 
     //챗봇 메뉴 버튼 동작

@@ -7,7 +7,7 @@
 /* chat TOP */
 .chatTitle{background: url("../image/chatbotStyle/ico_top.png") no-repeat; height:16px;width:16px; display: inline-block;top: 12px; position: absolute; }
 .chatTitleText{font-size:15px;color:#FFF;top: 10px;left:30px; position: absolute;}
-.topIcon01{background: url("../image/chatbotStyle/btn_down.png") no-repeat;  width:14px;height:13px;display: inline-block;top: 14px; right: 58px;position: absolute} 
+.topIcon01{background: url("../image/chatbotStyle/btn_down.png") no-repeat;  width:14px;height:13px;display: inline-block;top: 22px; right: 58px;position: absolute} 
 .topIcon02{background: url("../image/chatbotStyle/btn_fsize.png") no-repeat;  width:12px;height:12px;display: inline-block;top: 14px; right: 34px;position: absolute;}
 .topIcon02-1{background: url("../image/chatbotStyle/btn_fsize_02.png") no-repeat;  width:12px;height:12px;display: inline-block;top: 14px; right: 34px;position: absolute;}
 .topIcon03{background: url("../image/chatbotStyle/btn_close.png") no-repeat;  width:13px;height:13px;display: inline-block;top: 14px; right: 10px;position: absolute;}
