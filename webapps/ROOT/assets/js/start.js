@@ -14,7 +14,6 @@
 		$('.bot-wrap').remove();
 		$(".banner").remove();
 	}
-
 });
 
 function isMobile() {
@@ -33,7 +32,30 @@ if (isMobile()) {   //모바일 환경
 	});
 } else {    // 웹 환경
     $(document).on('click', '#botChatBtn', function () {
-		$('.wc-chatview-panel').css('bottom', 0).show();
-        $('.bot-wrap').show();
+        
+        if ($('.bot-wrap').css('display') == 'block') {
+            if ($('.btnMin').css('display') == 'none') {
+                $('.wc-chatview-panel').css({ "bottom": "5px" });
+                $('.wc-chatview-panel').css({ "overflow": "visible" });
+                $('.wc-chatview-panel').animate({ "height": "528px" }, "fast");
+                $('.wc-console, wc-message-pane').show();
+                $('.btnLayer').removeClass('btnLayerMid').addClass('btnLayerFull');
+                $('.btnLayer > button').css({ 'display': 'inline-block' }).removeClass('topIcon02-1').addClass('topIcon02');
+                $('.btnMin').css({ 'right': '58px', 'display': 'inline-block' });
+            } else {
+                $('.wc-chatview-panel').css({ "overflow": "hidden" });
+                $('.wc-chatview-panel').animate({ "height": "32px" }, "fast");
+                $('.wc-console, wc-message-pane').hide();
+                $('.btnMin').css({ 'display': 'none' });
+                $('.btnLayer').removeClass('btnLayerFull').addClass('btnLayerMid');
+                $('.btnLayer > button').removeClass('topIcon02').addClass('topIcon02-1');
+            }
+        } else {
+            $('.topIcon01').css('top', '25px');
+            $('.wc-menu').css('display', 'none');
+            $('.wc-textbox').css('left', '15px');
+            $('.wc-chatview-panel').css('bottom', 0).show();
+            $('.bot-wrap').show();
+        }
 	});
 }

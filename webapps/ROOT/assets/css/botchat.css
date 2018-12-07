@@ -1,3 +1,8 @@
+
+.mainBG {
+    background: url("../image/chatbotStyle/bg.jpg") no-repeat;
+}
+
 /* reset */
 body .wc-app, .wc-app button, .wc-app input, .wc-app textarea div {
     font-family: "Nanum Gothic", sans-serif;
@@ -25,7 +30,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea div {
   visibility: hidden; }
 
 .wc-header {
-  background-color: #302f35;
+  background-color: #f37321;
   box-shadow: 0 1px rgba(0, 0, 0, 0.2);
   box-sizing: content-box;
   color: #ffffff;
@@ -134,12 +139,14 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea div {
 
 /* views */
 .wc-chatview-panel {
-  width:380px;
-  height:528px;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  bottom: 0; }
+    width: 380px;
+    height: 528px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+}
 
 /* messages */
 .wc-message-wrapper {
@@ -210,20 +217,28 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea div {
 }
   .wc-card .non-adaptive-content {
     margin: 8px 8px 0 8px; }
-  .wc-card button {
-    background-color: transparent;
-    color: #3a96dd;
-    min-height: 32px;
-    width: 100%;
-    padding: 0 16px; }
-  .wc-card button:hover {
-    background-color: transparent;
-    border-color: #3a96dd;
-    color: #3a96dd; }
-  .wc-card button:active {
-    background-color: #3a96dd;
-    border-color: #3a96dd;
-    color: #ffffff; }
+    .wc-card button {
+        border-radius: 5px;
+        background-color: transparent;
+        border-color: #f37321;
+        color: #f37321;
+        min-height: 32px;
+        width: 100%;
+        padding: 0 16px;
+        border: 1px solid;
+    }
+        .wc-card button:hover {
+            border-radius: 5px;
+            background-color: #f37321;
+            border-color: #f37321;
+            color: #ffffff;
+        }
+        .wc-card button:active {
+            border-radius:5px;
+            background-color: #f37321;
+            border-color: #f37321;
+            color: #ffffff;
+        }
   .wc-card.receipt table {
     border-collapse: collapse;
     width: 100%; }
@@ -414,8 +429,8 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea div {
 
 .wc-message-from-bot svg.wc-message-callout {
   background: url("../image/chatbotStyle/ico_profi.png") no-repeat;
-  width: 30px;
-  height: 30px;
+  width: 37px;
+  height: 37px;
   display: inline-block;
   /*position: fixed;*/
   margin: -10px 0 0 -40px

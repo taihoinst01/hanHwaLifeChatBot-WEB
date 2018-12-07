@@ -3130,25 +3130,72 @@
                     };
                 switch (e.contentType) {
                     case "application/vnd.microsoft.card.hero":
+                        //KSO CUSTER AREA
                         if (e.content.card_division == "play") {
+                        if (!e.content) return null;
+                        var r = new i.AdaptiveCardBuilder;
+                        //TTS 적용 
+                        //lfn_speakTTS(e.content.text);
+                        return e.content.images && e.content.images.forEach(function (t) {
+                            return r.addImage(t.url)
+                        }), r.addCommon(e.content), o.createElement(s.AdaptiveCardContainer, {
+                            className: "hero wc-card-play",
+                            card: r.card,
+                            onImageLoad: t.onImageLoad,
+                            onCardAction: t.onCardAction,
+                            onClick: n(e.content.tap)
+                        }, o.createElement("div", { className: "hidden", alt: e.content.card_division })
+                            , o.createElement("div", { className: "hidden", alt: e.content.title })
+                            , o.createElement("div", { className: "hidden", alt: e.content.card_value }))
+                        } else if (e.content.card_division == "img") {
                             if (!e.content) return null;
                             var r = new i.AdaptiveCardBuilder;
                             return e.content.images && e.content.images.forEach(function (t) {
                                 return r.addImage(t.url)
                             }), r.addCommon(e.content), o.createElement(s.AdaptiveCardContainer, {
-                                className: "hero wc-card-play",
+                                className: "hero wc-card-img",
                                 card: r.card,
                                 onImageLoad: t.onImageLoad,
                                 onCardAction: t.onCardAction,
                                 onClick: n(e.content.tap)
-                            }, o.createElement("div", { className: "playImg" })
-                             , o.createElement("div", { className: "hidden", alt: e.content.title })
-                             , o.createElement("div", { className: "hidden", alt: e.content.card_value }))
+                            }, o.createElement("div", { className: "hidden", alt: e.content.card_division })
+                                , o.createElement("div", { className: "hidden", alt: e.content.title })
+                                , o.createElement("div", { className: "hidden", alt: e.content.images[0].url })
+                                , o.createElement("div", { className: "hidden", alt: e.content.card_value }))
+                        } else if (e.content.card_division == "map") {
+                            if (!e.content) return null;
+                            var r = new i.AdaptiveCardBuilder;
+                            return e.content.images && e.content.images.forEach(function (t) {
+                                return r.addImage(t.url)
+                            }), r.addCommon(e.content), o.createElement(s.AdaptiveCardContainer, {
+                                className: "hero wc-card-map",
+                                card: r.card,
+                                onImageLoad: t.onImageLoad,
+                                onCardAction: t.onCardAction,
+                                onClick: n(e.content.tap)
+                            }, o.createElement("div", { className: "hidden", alt: e.content.card_division })
+                                , o.createElement("div", { className: "hidden", alt: e.content.title })
+                                , o.createElement("div", { className: "hidden", alt: e.content.card_value }))
+                        } else if (e.content.card_division == "reel") {
+                            if (!e.content) return null;
+                            var r = new i.AdaptiveCardBuilder;
+                            return e.content.images && e.content.images.forEach(function (t) {
+                                return r.addImage(t.url)
+                            }), r.addCommon(e.content), o.createElement(s.AdaptiveCardContainer, {
+                                className: "hero wc-card-reel",
+                                card: r.card,
+                                onImageLoad: t.onImageLoad,
+                                onCardAction: t.onCardAction,
+                                onClick: n(e.content.tap)
+                            }, o.createElement("div", { className: "hidden", alt: e.content.card_division })
+                                , o.createElement("div", { className: "hidden", alt: e.content.title })
+                                , o.createElement("div", { className: "hidden", alt: e.content.card_value }))
                         } else {
                             console.log("제스너 no : " + e.content.gesture);
                             if (!e.content) return null;
                             var r = new i.AdaptiveCardBuilder;
-                            
+                            //TTS 적용 
+                            //lfn_speakTTS(e.content.text);
                             // KSO 2018.06.21 gesture loading 여부 확인 후 해당 gesture 번호 실행, gesture 로딩 이후에 실행 됨
                             // gesture num( 0 ~ 19 ) 까지 있음
                             if ($('#animationDiv').hasClass('gOn')) {
@@ -7235,7 +7282,9 @@
                     return t.call(this, e) || this
                 }
                 return r.__extends(e, t), e.prototype.updateContentWidth = function() {
-                    var t = this.props.size.width - this.props.format.carouselMargin;
+                    //var t = this.props.size.width - this.props.format.carouselMargin; //original
+					var t = parseInt($('.wc-message-groups').css('width')) - this.props.format.carouselMargin - 30; //KSO 줄였을때 carousel 크기 조정
+                    																																		  
                     this.root.style.width = "", this.root.offsetWidth > t && (this.root.style.width = t.toString() + "px", this.hscroll.updateScrollButtons())
                 }, e.prototype.componentDidMount = function() {
                     this.updateContentWidth()
@@ -7744,13 +7793,19 @@
                         onKeyPress: function (e) {
 
                             //KSO (autocomplete)
-                            if (($('.hiddenText').attr('value') != '') && (t.textInput.value !== '')) {
+                            if (($('.hiddenText').attr('value') != '') && (t.textInput.value !== '') && (e.key == 'Enter')) {
                                 t.props.inputText = t.textInput.value;
                                 t.textInput.value = '';
                                 $('.hiddenText').attr('value', '');
                             }
+                            //STT
+                            if (($('.sttText').attr('value') != '') && (t.textInput.value !== '') && (e.key == 'Enter')) {
+                                t.props.inputText = t.textInput.value;
+                                t.textInput.value = '';
+                                $('.sttText').attr('value', '');
+                            }
                             //KSO (menu 부분 현재 사용x)
-                            if ((t.props.inputText === 'return home') && (t.textInput.value == '')) {
+                            if ((t.props.inputText === 'return home') && (t.textInput.value == '') && (e.key == 'Enter')) {
                                 t.props.inputText = '';
                             }
                             return t.onKeyPress(e)
@@ -7786,7 +7841,7 @@
                         //}))
                         o.createElement("div", {
                             className: "sendIcon"
-                        }, 'send')
+                        }, '전송')
                         ), o.createElement("label", {
                         className: s,
                         onClick: function() {
@@ -7874,7 +7929,8 @@
                 messageFailed: "couldn't send",
                 messageSending: "sending",
                 timeSent: " at %1",
-                consolePlaceholder: "Please enter your message.",
+                //consolePlaceholder: "Please enter your message.",
+                consolePlaceholder: "메세지를 입력하세요.",
                 listeningIndicator: "Listening..."
             },
             ja: {
@@ -12718,6 +12774,12 @@
                             n.style.maxWidth = Z.imageSizes.medium + "px"
                     }
                     "person" == this.style && (n.style.borderRadius = "50%", n.style.backgroundPosition = "50% 50%", n.style.backgroundRepeat = "no-repeat"), n.src = this.url, e.appendChild(n)
+                    //KSO imgIcon 추가
+                    var imgIcon = document.createElement("div");
+                    var imgIconType = t.parent.parent.adaptiveCardContainer.props.children[0].props.alt + "Img";    // img, play, map, reel
+                    imgIcon.classList.add(imgIconType);
+                    e.appendChild(imgIcon);
+                    e.style.cursor = "pointer";											
                 }
                 return e
             }, e.prototype.getJsonTypeName = function() {

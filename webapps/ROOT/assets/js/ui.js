@@ -16,6 +16,18 @@ $(function () {
             "</div>" +
         "</div>").appendTo("#bot");
 
+    //이미지 팝업창 생성(cardDivision : img)
+    $("#bot > div").add(
+        "<div class='img-wrapper popupArea'>" +
+        "<div class='popHeader'>" +
+        "<span id='imgTitle' class='popupTitle'></span>" +
+        "<button class='btnTopClose'></button>" +
+        "</div>" +
+        "<div id='imgCarousel' class='popBody' align='center'>" +
+        "<img id='imgTag' src='' width='568' height='318'>" +
+        "</div> " +
+        "</div>").appendTo("#bot");
+
     //제스처 케릭터 영역 생성
     $("#bot > div").add(
         "<div class='gesture-wrapper gestureArea'>" +
@@ -57,12 +69,12 @@ $(function () {
     //챗봇창 상단 생성
     $(".wc-header > span").add(
         "<span class='chatTitle'></span>" +
-        "<span class='chatTitleText'><strong>TS</strong> ChatBot</span>" +
+        "<span class='chatTitleText'><strong>한화</strong> ChatBot</span>" +
         "<span class='topIcon btnClose'><button class='topIcon03'></button></span>" +
         "<span class='topIcon btnLayer btnLayerFull'><button class='topIcon02'></button></span>" +
-        "<span class='topIcon btnMin'><button class='topIcon01'></button></span>" +
-        "<span class='topGestureArea'><button class='topGestureIcon'>C</button></span>").appendTo(".wc-header");
-
+        "<span class='topIcon btnMin'><button class='topIcon01'></button></span>").appendTo(".wc-header");
+        //"<span class='topGestureArea'><button class='topGestureIcon'>C</button></span>").appendTo(".wc-header");
+    /*
     //챗봇 메뉴창 생성
     $(".wc-chatview-panel > div").add(
         "<div class='menuBox off'>" +
@@ -73,6 +85,7 @@ $(function () {
         "<li class='menuSelectBtn'><span><a href='#' onclick='viewMenu()'> return home </span></a></li>" +
         "</ul>" +
         "</div > ").appendTo(".wc-chatview-panel");
+    */
 
     //챗봇창 버튼 동작
     $('.btnClose').click(function () {
@@ -86,19 +99,49 @@ $(function () {
         $('.btnMin').css({ 'display': 'none' });
         $('.btnLayer').removeClass('btnLayerFull').addClass('btnLayerMid');
         $('.btnLayer > button').removeClass('topIcon02').addClass('topIcon02-1');
+        $('.btnTopClose').trigger('click');
     });
     $(document).on('click', '.wc-header [class*=btnLayer]', function () {
         if ($(this).hasClass('btnLayerMid')) {
+            $('.wc-chatview-panel').css({ "bottom": "5px" });
             $('.wc-chatview-panel').css({ "overflow": "visible" });
             $('.wc-chatview-panel').animate({ "height": "582px" }, "fast");
             $('.wc-console, wc-message-pane').show();
             $('.btnLayer').removeClass('btnLayerMid').addClass('btnLayerFull');
             $('.btnLayer > button').css({ 'display': 'inline-block' }).removeClass('topIcon02-1').addClass('topIcon02');
-            $('.btnMin').css({ 'right': '58px', 'display':'inline-block' });
+            $('.btnMin').css({ 'right': '58px', 'display': 'inline-block' });
+
+
+            var chatHeight = ($(document).height()) - 582 - 6;
+            if ($('.topGestureOnImg').attr('alt') == 'on') {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').animate({ "right": 0 }, "fast");
+            } else if ($('.topGestureOffImg').attr('alt') == 'off') {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').animate({ "right": 150 + 'px' }, "fast");
+            } else {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+            }
+            
+
         } else {
             $('.wc-chatview-panel').animate({ "height": ($(document).height()) + 'px' }, "fast");
             $('.btnLayer').removeClass('btnLayerFull').addClass('btnLayerMid');
             $('.btnLayer > button').css({ 'display': 'inline-block' }).removeClass('topIcon02').addClass('topIcon02-1');
+
+            
+            
+            var chatHeight = 0; //$('.wc-chatview-panel .wc-header').offset().top;
+            if ($('.topGestureOnImg').attr('alt') == 'on') {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').animate({ "right": 0 }, "fast");
+            } else if ($('.topGestureOffImg').attr('alt') == 'off') {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').animate({ "right": 150 + 'px' }, "fast");
+            } else {
+                $('.img-wrapper').animate({ "top": chatHeight + "px" }, "fast");
+            }
+            
         }
     });
 
@@ -115,11 +158,13 @@ $(function () {
     
 	//챗봇 팝업 동작 (동영상)
     $(document).on('click', '.wc-card-play > .non-adaptive-content', function () {
+        
         var movPopTitle = $(this).children().eq(1).attr('alt');
         $('#movTitle').text(movPopTitle);
         var movPopUrl = $(this).children().eq(2).attr('alt');
         $('#video').attr('src', movPopUrl);
         $('.mov-wrapper').show().animate({ "right": "380px", "opacity": "1", "display": "block" }, "fast").fadeIn("fast");
+
     });
     //챗봇 제스처 동작
     var startJesture = 0;
@@ -133,8 +178,13 @@ $(function () {
     //닫기 버튼
     $('.btnTopClose').click(function () {
         $("#video").attr('src', '');
-        $('.mov-wrapper').hide().animate({ "right": "-380px", "opacity": "0", "display": "none" }, "slow").fadeOut("slow");
-        $('.gesture-wrapper').hide().animate({ "right": "-380px", "opacity": "0"}, "slow").fadeOut("slow");
+        $('.mov-wrapper, .img-wrapper, .map-wrapper, .reel-wrapper').hide().animate({ "right": "1px", "opacity": "0", "display": "none" }, "fast").fadeOut("fast");
+
+        if ($('.topGestureOnImg').attr('alt') == 'on') {
+            $('.wc-chatview-panel').show().animate({ "right": 5 + "%" }, "fast");
+        } else if ($('.topGestureOffImg').attr('alt') == 'off') {
+            $('.wc-chatview-panel').show().animate({ "right": 27 + '%' }, "fast");
+        }
     });
 
 
@@ -144,6 +194,101 @@ $(function () {
     //    playAnimation('ChatBot_AniAll01');
     //});
 });
+
+
+//팝업 영역 호출
+$(document).on('click', '.ac-image', function () {
+    var popType = $(this).parent().parent().parent().children().eq(0).children().eq(0).attr('alt');
+    console.log("popType :: " + popType);
+
+    $("#video").attr('src', '');
+
+    var chageChatHeight = parseInt($('.wc-chatview-panel').css('height')) - 323;    //팝업창 크기가 변하면 숫자 수정해야함
+    if (popType == "img") { // IMG
+
+        if ($('.img-wrapper').css('display') == 'block') {
+            $('.img-wrapper').fadeOut("fast");
+        } else {
+            $('.mov-wrapper, .map-wrapper, .reel-wrapper').fadeOut();
+            $('#imgDiv > div').remove();
+            var manyImg = false;
+            var imgPopTitle = $(this).parent().parent().parent().children().eq(0).children().eq(1).attr('alt');
+            var imgUrl = $(this).parent().parent().parent().children().eq(0).children().eq(2).attr('alt');
+            var imgCnt = $(this).parent().parent().parent().children().eq(0).children().eq(3).attr('alt');
+            $('#imgTag').attr('src', imgUrl);
+            $('#imgTitle').text(imgPopTitle);
+            var chatHeight = $('.wc-chatview-panel .wc-header').offset().top;
+            var chatWidth = $('.wc-chatview-panel').css('width');
+            if ($('.topGestureOnImg').attr('alt') == 'on') {
+                $('.img-wrapper').show().animate({ "right": chatWidth, "opacity": "1", "bottom": chageChatHeight + "px", "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').show().animate({ "right": 0 }, "fast");
+            } else if ($('.topGestureOffImg').attr('alt') == 'off') {
+                $('.img-wrapper').show().animate({ "right": chatWidth, "opacity": "1", "bottom": chageChatHeight + "px", "top": chatHeight + "px" }, "fast");
+                $('.wc-chatview-panel').show().animate({ "right": 150 + 'px' }, "fast");
+            } else {
+                $('.img-wrapper').show().animate({ "right": chatWidth, "opacity": "1", "bottom": chageChatHeight + "px", "top": chatHeight + "px" }, "fast");
+            }
+        }
+    } else if (popType == "play") { // PLAY
+        $('.img-wrapper, .map-wrapper, .reel-wrapper').fadeOut();
+        var movPopTitle = $(this).parent().parent().parent().children().eq(0).children().eq(1).attr('alt');
+        var movPopUrl = $(this).parent().parent().parent().children().eq(0).children().eq(2).attr('alt');
+        $('#movTitle').text(movPopTitle);
+        $('#video').attr('src', movPopUrl);
+
+        if ($('.topGestureOnImg').attr('alt') == 'on') {
+            $('.mov-wrapper').show().animate({ "right": "780px", "opacity": "1", "bottom": chageChatHeight + "px" }, "fast");
+            $('.wc-chatview-panel').show().animate({ "right": 0 }, "fast");
+        } else if ($('.topGestureOffImg').attr('alt') == 'off') {
+            $('.mov-wrapper').show().animate({ "right": "930px", "opacity": "1", "bottom": chageChatHeight + "px" }, "fast");
+            $('.wc-chatview-panel').show().animate({ "right": 150 + 'px' }, "fast");
+        } else {
+            $('.mov-wrapper').show().animate({ "right": "421px", "opacity": "1", "bottom": chageChatHeight + "px" }, "fast");
+        }
+    } else if (popType == "map") {  // MAP
+        $('.mov-wrapper, .img-wrapper, .reel-wrapper').fadeOut();
+        $('#mapArea > div').remove();
+        $('#mapArea').add("<div id='map' style='border:1px solid #000;'></div>").appendTo('#mapArea');
+        var mapTitle = $(this).parent().parent().parent().children().eq(0).children().eq(1).attr('alt');
+        $('#mapTitle').text(mapTitle);
+        var coordinate = $(this).parent().parent().parent().children().eq(0).children().eq(2).attr('alt');
+        var _temp = coordinate.split(',');
+        var longitude = _temp[0];
+        var latitude = _temp[1];
+        /* V3로 변경*/
+        var position = new naver.maps.LatLng(longitude, latitude);
+        var map = new naver.maps.Map('map', {
+            center: position,
+            zoom: 12,
+            size: new naver.maps.Size(568, 318)
+        });
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(longitude, latitude),
+            map: map
+        });
+        $('.map-wrapper').show().animate({ "right": "421px", "opacity": "1", "bottom": chageChatHeight + "px" }, "fast");
+    } else if (popType == "reel") { // REEL
+        $('.img-wrapper, .map-wrapper, .mov-wrapper').fadeOut();
+
+        var reelPopTitle = $(this).parent().parent().parent().children().eq(0).children().eq(1).attr('alt');
+        $('#reelTitle').text(reelPopTitle);
+        if ($('.reel-wrapper').css('display', 'block')) {
+            $('#image').reel({
+                images: "assets/image/car/000##.jpg",
+                frames: 60,
+                cw: true,
+                brake: 10,
+                throwable: 10
+            });
+        }
+
+        $('.reel-wrapper').show().animate({ "right": "421px", "opacity": "1", "bottom": chageChatHeight + "px" }, "fast");
+    }
+});
+
+
+
+
 
 //챗봇 메뉴 처음으로 돌아가기
 //function viewMenu() {
