@@ -1,7 +1,7 @@
 ﻿/* chatbot BG */
 /*.mainBG{background:url(../image/chatbotStyle/psa_bg2.png) no-repeat center 10%; background-attachment:fixed; width:100%}*/
 .botBtnPosition{position:absolute;top:360px;left:25%}
-.banner{background:url(../image/chatbotStyle/btn_chatlink.png) no-repeat; width:194px;height:47px;position:relative;top:540px;left:23.5%;transform: translateX(-50%) translateY(-10%);}
+.banner{background:url(../image/chatbotStyle/btn_chatlink.png) no-repeat; border-radius: 10px; width:194px;height:47px;position:relative;top:540px;left:23.5%;transform: translateX(-50%) translateY(-10%);}
 .banner:hover{background:url(../image/chatbotStyle/btn_chatlink_hover.png) no-repeat; width:194px;height:47px;position:relative;top:540px;left:23.5%;transform: translateX(-50%) translateY(-10%);cursor:pointer}
 
 /* chat TOP */
