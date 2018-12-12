@@ -46,26 +46,45 @@ $(function () {
     $(".wc-shellinput").autocomplete({
         position: { my: "right bottom-25", at: "right" },
         source: function (request, response) {
-            var results = $.ui.autocomplete.filter(autocomplete_text, request.term);
-            response(results.slice(0, 5));  //갯수 제한 5개
+			var results = $.ui.autocomplete.filter(autocomplete_text, request.term);
+			if (results.length >0) {
+				if (results.indexOf(request.term) == -1) {
+					response(results.slice(0, 5));
+				}
+			}
+            //response(results.slice(0, 5));  //갯수 제한 5개
         },
         focus: function (event, ui) {   //한글만 검색됬을시 자동검색창 닫히는 현상(버전업 버그라고함)
             return false;
-        },
+		},
         open: function (event, ui) {
             $(document).on('click', '.ui-menu-item-wrapper', function () {
-                $('.wc-shellinput').attr('value', $(this).text());
-                $('.hiddenText').attr('value', $(this).text());
-            }).on('keydown', '.wc-shellinput', function () {
-                if ($('.ui-menu-item-wrapper').text()) {
-                    keyboardText = $('.ui-state-active').text();
-                }
+				if ($('.ui-autocomplete').has(event.target).length > 0) {
+					$('.wc-shellinput').attr('value', $(this).text());
+					$('.hiddenText').attr('value', $(this).text());
+					return false;
+				}
+            }).on('keydown', '.wc-shellinput', function (e) {
+				if (e.keyCode == 27) {
+					$('.ui-autocomplete').hide();
+					return false;
+				} else {
+					if (e.keyCode == 13) {
+						$('.ui-autocomplete').hide();
+					}
+					if ($('.ui-menu-item-wrapper').text()) {
+						keyboardText = $('.ui-state-active').text();
+					}
+				}
+				
             });
         },
         close: function (event, ui) {
-            //keyboard일 경우 닫을때 담아준다
+			//keyboard일 경우 닫을때 담아준다
+			keyboardText = $(".wc-shellinput").val();
             $('.wc-shellinput').attr('value', keyboardText);
-            $('.hiddenText').attr('value', keyboardText);
+			$('.hiddenText').attr('value', keyboardText);
+			$('.ui-autocomplete').hide();
         }
     });
 });
