@@ -4,9 +4,8 @@
 var quickQuestionList = [
     "경조금 지급기준은 어떻게 되나요?",
     "결혼 경조금 지급기준은 어떻게 되나요?",
-    "학자금 지급기준 및 지급기간 ",
     "학자금 신청방법은?",
-    " 학자금 신청기간 1년을 경과한 경우 지급이 안됩니까?",
+    "학자금 신청기간 1년을 경과한 경우 지급이 안됩니까?",
     "사내부부인 경우 중복지원 되나요?"
 ];
 
@@ -104,7 +103,7 @@ $(function () {
                     "<div class='menuBox off'>" +
                     "<p class='menuReStartBtn' style='border-radius:3px;'><span> 자주 묻는 질문 </span></p>" +
                     "<ul>";
-    for (var i=0; i<quickQuestionList.length; i++) {
+    for (var i=0; i<quickQuestionList.length&&i<5; i++) {
         quickStr += "<li class='menuSelectBtn'><span><a href='#' onclick='getAnswerFnc(this.text)'> " + quickQuestionList[i] + " </span></a></li>";
     }
     quickStr += "</ul>" +
@@ -180,7 +179,7 @@ $(function () {
         if ($('.menuBox').hasClass("off")) {
             //var divTop = e.clientY*1 - $('.menuBox').css('height').split('px')[0]*1;
             //var divLeft = e.clientX*1 - $('.menuBox').css('width').split('px')[0]*1;
-            var divTop = $(this).offset().top*1 - $('.menuBox').css('height').split('px')[0]*1;
+            var divTop = $(this).offset().top*1 - $('.menuBox').css('height').split('px')[0]*1 + $('.wc-menu').css('height').split('px')[0]*1;
             var divLeft = $(this).offset().left*1 - $('.menuBox').css('width').split('px')[0]*1;
             var popH = $(this).offset().top; //fe_laypopH 의 top 좌표값
             $('.menuBox').css('top', divTop+'px'); 
