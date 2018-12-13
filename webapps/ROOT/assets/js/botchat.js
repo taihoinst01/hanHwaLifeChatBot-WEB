@@ -7775,7 +7775,7 @@
                             className: "wc-menu"
                         }, o.createElement("div", {
                             className: "menuIcon"
-                            }, 'menu')),
+                            }, 'Top5')), //메뉴버튼text
                         o.createElement("div", {
                             className: "wc-textbox"
                         },
