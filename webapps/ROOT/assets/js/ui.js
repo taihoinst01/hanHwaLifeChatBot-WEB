@@ -94,6 +94,7 @@ $(function () {
     });
     //, "border-radius": "10px"
     $('.btnMin').click(function () {
+        $('.wc-chatview-panel').css({ "border-radius": "10px" });
         $('.wc-chatview-panel').css({ "overflow": "hidden" });
         $('.wc-chatview-panel').animate({ "height": "32px" }, "fast");
         $('.wc-console, wc-message-pane').hide();
@@ -105,7 +106,7 @@ $(function () {
     $(document).on('click', '.wc-header [class*=btnLayer]', function () {
         if ($(this).hasClass('btnLayerMid')) {
             $('.wc-chatview-panel').css({ "bottom": "5px" });
-            $('.wc-chatview-panel').css({ "overflow": "hidden" });
+            $('.wc-chatview-panel').css({ "overflow": "hidden", "border-radius" : "10px" });
             //$('.wc-chatview-panel').css({ "overflow": "visible" }); //original
             $('.wc-chatview-panel').animate({ "height": "582px" }, "fast");
             $('.wc-console, wc-message-pane').show();
@@ -127,7 +128,7 @@ $(function () {
             
 
         } else {
-            $('.wc-chatview-panel').animate({ "height": ($(document).height()) + 'px' }, "fast");
+            $('.wc-chatview-panel').animate({ "height": ($(document).height()) + 'px', "border-radius" : "10px" }, "fast");
             $('.btnLayer').removeClass('btnLayerFull').addClass('btnLayerMid');
             $('.btnLayer > button').css({ 'display': 'inline-block' }).removeClass('topIcon02').addClass('topIcon02-1');
 
