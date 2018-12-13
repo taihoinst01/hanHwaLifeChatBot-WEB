@@ -53,8 +53,8 @@ if (isMobile()) {   //모바일 환경
         } else {
             //$('.topIcon01').css('top', '25px');
             $('.wc-chatview-panel').css({ "border-radius": "10px" });
-            $('.wc-menu').css('display', 'none');
-            $('.wc-textbox').css('left', '15px');
+            //$('.wc-menu').css('display', 'none');
+            //$('.wc-textbox').css('left', '15px');
             $('.wc-chatview-panel').css('bottom', 0).show();
             $('.bot-wrap').show();
         }

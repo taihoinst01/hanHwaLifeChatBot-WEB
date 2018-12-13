@@ -1,4 +1,28 @@
+
+
+//자주묻는 질문
+var quickQuestionList = [
+    "경조금 지급기준은 어떻게 되나요?",
+    "결혼 경조금 지급기준은 어떻게 되나요?",
+    "학자금 지급기준 및 지급기간 ",
+    "학자금 신청방법은?",
+    " 학자금 신청기간 1년을 경과한 경우 지급이 안됩니까?",
+    "사내부부인 경우 중복지원 되나요?"
+];
+
+
+
 $(function () {
+    
+    $(document).click(function(e){
+        if ($('.menuBox').css('display') != 'none' ) {
+            if(!$(e.target).closest(".menuBox").length && !$(e.target).closest(".wc-menu").length) {
+                $('.menuBox').removeClass('on').addClass('off');
+                $('.menuBox').css({ 'display': 'none' });
+            }
+        }
+    });
+
     $('#wrapper').css({ 'height': ($(document).height()) + 'px'});
     $(window).resize(function () {
         //$('#wrapper').css({ 'height': ($(document).height()) + 'px' });
@@ -74,18 +98,20 @@ $(function () {
         "<span class='topIcon btnLayer btnLayerFull'><button class='topIcon02'></button></span>" +
         "<span class='topIcon btnMin'><button class='topIcon01'></button></span>").appendTo(".wc-header");
         //"<span class='topGestureArea'><button class='topGestureIcon'>C</button></span>").appendTo(".wc-header");
-    /*
+    
     //챗봇 메뉴창 생성
-    $(".wc-chatview-panel > div").add(
-        "<div class='menuBox off'>" +
-        "<p class='menuReStartBtn'><span> Menu </span></p>" +
-        "<ul>" +
-        //"<li class='menuSelectBtn'><span><a href='#' onclick='viewMenu('Accident analysis')'> Accident analysis </span></a></li>" +
-        //"<li class='menuSelectBtn'><span><a href='#' onclick='viewMenu('Accident trends')'> Accident trends </span></a></li>" +
-        "<li class='menuSelectBtn'><span><a href='#' onclick='viewMenu()'> return home </span></a></li>" +
-        "</ul>" +
-        "</div > ").appendTo(".wc-chatview-panel");
-    */
+    var quickStr =  "" + 
+                    "<div class='menuBox off'>" +
+                    "<p class='menuReStartBtn' style='border-radius:3px;'><span> 자주 묻는 질문 </span></p>" +
+                    "<ul>";
+    for (var i=0; i<quickQuestionList.length; i++) {
+        quickStr += "<li class='menuSelectBtn'><span><a href='#' onclick='getAnswerFnc(this.text)'> " + quickQuestionList[i] + " </span></a></li>";
+    }
+    quickStr += "</ul>" +
+                "</div > ";
+    //$(".wc-chatview-panel > div").add(quickStr).appendTo(".wc-chatview-panel");
+    $('body').append(quickStr);
+    
 
     //챗봇창 버튼 동작
     $('.btnClose').click(function () {
@@ -150,8 +176,16 @@ $(function () {
     });
 
     //챗봇 메뉴 버튼 동작
-    $('.menuIcon').click(function (){
+    $('.wc-menu').click(function (e){
         if ($('.menuBox').hasClass("off")) {
+            //var divTop = e.clientY*1 - $('.menuBox').css('height').split('px')[0]*1;
+            //var divLeft = e.clientX*1 - $('.menuBox').css('width').split('px')[0]*1;
+            var divTop = $(this).offset().top*1 - $('.menuBox').css('height').split('px')[0]*1;
+            var divLeft = $(this).offset().left*1 - $('.menuBox').css('width').split('px')[0]*1;
+            var popH = $(this).offset().top; //fe_laypopH 의 top 좌표값
+            $('.menuBox').css('top', divTop+'px'); 
+            $('.menuBox').css('left', divLeft+'px'); 
+
             $('.menuBox').removeClass('off').addClass('on');
             $('.menuBox').css({ 'display': 'block' });
         } else {
@@ -159,6 +193,7 @@ $(function () {
             $('.menuBox').css({ 'display': 'none' });
         }
     });
+
     
 	//챗봇 팝업 동작 (동영상)
     $(document).on('click', '.wc-card-play > .non-adaptive-content', function () {
@@ -292,7 +327,17 @@ $(document).on('click', '.ac-image', function () {
 
 
 
+function getAnswerFnc(getText) {
+    if (getText) {
+        getText = $.trim(getText);
+    }
+    $('.wc-shellinput').val(getText);//.attr('value', getText);
+    $('.hiddenText').attr('value', getText);
+    $('.wc-send').trigger('click');
 
+    $('.menuBox').removeClass('on').addClass('off');
+    $('.menuBox').css({ 'display': 'none' });
+}
 
 //챗봇 메뉴 처음으로 돌아가기
 //function viewMenu() {
