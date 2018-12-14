@@ -101,7 +101,7 @@ $(function () {
     //챗봇 메뉴창 생성
     var quickStr =  "" + 
                     "<div class='menuBox off'>" +
-                    "<p class='menuReStartBtn' style='border-radius:3px;'><span> 자주 묻는 질문 </span></p>" +
+                    "<p class='menuReStartBtn' style='border-radius:3px;'><span> 자주 묻는 질문 Top5</span></p>" +
                     "<ul>";
     for (var i=0; i<quickQuestionList.length&&i<5; i++) {
         quickStr += "<li class='menuSelectBtn'><span><a href='#' onclick='getAnswerFnc(this.text)'> " + quickQuestionList[i] + " </span></a></li>";
